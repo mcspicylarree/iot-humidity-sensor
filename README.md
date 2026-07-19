@@ -74,6 +74,18 @@ This taught me to always cross-reference the ESP32 pin configuration table again
 7. Open Grafana and import the dashboard
 
 ---
+## Node-RED Workflow
+<img width="772" height="384" alt="Screenshot 2026-07-19 154000" src="https://github.com/user-attachments/assets/302c9f61-3bab-453d-815c-e0512c712a14" />
+
+### Flow Breakdown
+- **HumidSensor/tyl9243a/M** — MQTT subscribe node, ingests raw sensor readings
+- **Extract&Transform** — parses payload, extracts humidity value + timestamp
+- **switch** — routes based on threshold (e.g. >70% triggers actuation)
+- **Powermode / Actuation** — function nodes controlling device state
+- **mqtt (publish)** — sends actuation command back to device
+- **logging / debug** — dev-time monitoring, catch-all error handling
+
+---
 
 ## Dashboard
 <img width="746" height="455" alt="photo_6134106214258905243_x" src="https://github.com/user-attachments/assets/6ab4bbcf-5107-48c6-8e14-3dbe6668566f" />
